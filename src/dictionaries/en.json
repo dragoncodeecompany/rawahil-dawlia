@@ -1,0 +1,36 @@
+{
+  "logo": "Shop",
+  "home": {
+    "hero": {
+      "title": "I am looking for a job",
+      "description": "Check out the latest jobs and explore how we can help you find a suitable job.",
+      "sendcv": "Send Your CV Now",
+      "learnMore": "Learn more"
+    },
+
+    "about": {
+      "ourStory": "Our story",
+      "aboutUs": "About us",
+      "descriptions": {
+        "one": "Welcome to our online store, where we offer a premium shopping experience with high-quality products and great deals. Discover a wide range of items, carefully selected to meet your needs. From everyday essentials to exclusive finds, there's something for everyone!",
+
+        "two": "Our passion for quality reflects in every product we offer. We source the finest items and bring them to you with competitive prices and fast delivery. Whether you're shopping for yourself or looking for the perfect gift, we've got you covered.",
+
+        "three": "Join us on a seamless shopping journey and enjoy a hassle-free experience like never before. We take pride in offering top-notch service, great value, and a collection designed to enhance your lifestyle. Shop now and experience the difference!"
+      }
+    },
+    "contact": {
+      "Don'tHesitate": "Don't hesitate",
+      "contactUs": "Contact us"
+    }
+  },
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact"
+  },
+
+  "copyRight": "© 2024 All rights reserved",
+  "noProductsFound": "No products found",
+  "noCategoriesFound": "No categories found"
+}
