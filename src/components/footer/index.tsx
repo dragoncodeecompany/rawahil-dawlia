@@ -17,7 +17,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import Link from "next/link";
+
 import React from "react";
 import { getSocialMediaData } from "@/services/getSochialData";
 import {
@@ -27,6 +27,7 @@ import {
 } from "@/services/getServicesFooterData";
 import { getFooterData } from "@/services/getFooterData";
 import { getCurrentLocale } from "@/lib/getCurrentLocale";
+import Link from "../link";
 
 const iconMap: Record<string, IconDefinition> = {
   faSquareFacebook,
@@ -147,6 +148,7 @@ async function Footer() {
             <Link
               href="https://web.facebook.com/dragoncodee/?_rdc=1&_rdr#"
               className="text-[var(--primary)] font-bold text-[16px]"
+              target="_blank"
             >
               DRAGON CODE🐉
             </Link>

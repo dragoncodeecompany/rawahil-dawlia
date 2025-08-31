@@ -11,7 +11,8 @@ import {
   faUsers,
   faXmark,
 } from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
+import Link from "../link";
+
 function Navbar({ translations }: { translations: { [key: string]: string } }) {
   const { locale } = useParams();
   const pathName = usePathname();
