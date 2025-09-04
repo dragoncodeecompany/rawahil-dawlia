@@ -17,8 +17,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-
-import React from "react";
 import { getSocialMediaData } from "@/services/getSochialData";
 import {
   getFooterServicesData,
@@ -103,7 +101,7 @@ async function Footer() {
             {quickLinks.map((link) => (
               <li key={link.id} className="text-[var(--text)] text-sm">
                 <Link
-                  href={link.href}
+                  href={`/${locale}${link.href === "/" ? "" : `/${link.href}`}`}
                   className="hover:text-[var(--primary)] transition-colors duration-300"
                 >
                   {link.title}

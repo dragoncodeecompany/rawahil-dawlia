@@ -49,14 +49,19 @@ export async function getMetaSeoData(
   }
 }
 
+// Helper to ensure HTTPS and handle relative paths
+const ensureHttps = (url: string, baseUrl: string) =>
+  url.startsWith("http") ? url.replace(/^http:/, "https:") : `${baseUrl}${url}`;
+
 export async function generateMetadata(
   pageName: string,
   locale: Locale
 ): Promise<Metadata> {
   const metaData = await getMetaSeoData(pageName, locale);
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://rawaheldawlia.com";
 
   if (!metaData) {
-    // Fallback metadata
     return {
       title: locale === "ar" ? "رواحل دولية" : "Rawahil Dawlia",
       description:
@@ -65,9 +70,6 @@ export async function generateMetadata(
           : "Leading recruitment agency specializing in connecting talents with suitable career opportunities",
     };
   }
-
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://rawaheldawlia.com";
 
   return {
     title: metaData.title,
@@ -83,9 +85,7 @@ export async function generateMetadata(
       images: metaData.og_image
         ? [
             {
-              url: metaData.og_image.startsWith("http")
-                ? metaData.og_image
-                : `${baseUrl}${metaData.og_image}`,
+              url: ensureHttps(metaData.og_image, baseUrl),
               width: 1200,
               height: 630,
               alt: metaData.og_title || metaData.title,
@@ -105,11 +105,7 @@ export async function generateMetadata(
       title: metaData.twitter_title || metaData.title,
       description: metaData.twitter_description || metaData.description,
       images: metaData.twitter_image
-        ? [
-            metaData.twitter_image.startsWith("http")
-              ? metaData.twitter_image
-              : `${baseUrl}${metaData.twitter_image}`,
-          ]
+        ? [ensureHttps(metaData.twitter_image, baseUrl)]
         : undefined,
     },
     alternates: {
@@ -122,8 +118,8 @@ export async function generateMetadata(
       },
     },
     icons: {
-      icon: metaData.favicon_url || "/favicon.svg",
-      apple: metaData.apple_touch_icon || "/favicon.svg",
+      icon: ensureHttps(metaData.favicon_url || "/favicon.svg", baseUrl),
+      apple: ensureHttps(metaData.apple_touch_icon || "/favicon.svg", baseUrl),
     },
   };
 }
@@ -140,7 +136,13 @@ export async function getFaviconData(
   const metaData = await getMetaSeoData("home", locale);
 
   return {
-    favicon: metaData?.favicon_url || "/favicon.svg",
-    appleTouchIcon: metaData?.apple_touch_icon || "/favicon.svg",
+    favicon: ensureHttps(
+      metaData?.favicon_url || "/favicon.svg",
+      process.env.NEXT_PUBLIC_SITE_URL || "https://rawaheldawlia.com"
+    ),
+    appleTouchIcon: ensureHttps(
+      metaData?.apple_touch_icon || "/favicon.svg",
+      process.env.NEXT_PUBLIC_SITE_URL || "https://rawaheldawlia.com"
+    ),
   };
 }
