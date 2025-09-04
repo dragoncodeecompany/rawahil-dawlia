@@ -7,51 +7,53 @@ import { Languages } from "@/constants/enums";
 import { sendContactEmail } from "@/lib/actions/sendEmail";
 import { useParams } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 function ContactUsForm() {
   const params = useParams();
   const locale = params.locale as string;
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [message, setMessage] = useState<{
-    type: "success" | "error";
-    text: string;
-  } | null>(null);
 
   async function handleSubmit(formData: FormData) {
     setIsSubmitting(true);
-    setMessage(null);
 
     try {
       const result = await sendContactEmail(formData);
 
       if (result.success) {
-        setMessage({
-          type: "success",
-          text:
-            locale === Languages.ARABIC
-              ? "تم إرسال الرسالة بنجاح!"
-              : "Message sent successfully!",
-        });
+        toast.success(
+          locale === Languages.ARABIC
+            ? "تم إرسال الرسالة بنجاح!"
+            : "Message sent successfully!",
+          {
+            style: {
+              backgroundColor: "white",
+              color: "green",
+            },
+          }
+        );
         // Reset form
         const form = document.getElementById("contact-form") as HTMLFormElement;
         form?.reset();
       } else {
-        setMessage({
-          type: "error",
-          text:
-            locale === Languages.ARABIC
-              ? result.error || "فشل في إرسال الرسالة"
-              : result.error || "Failed to send message",
-        });
+        toast.error(
+          locale === Languages.ARABIC
+            ? result.error || "فشل في إرسال الرسالة"
+            : result.error || "Failed to send message"
+        );
       }
     } catch (error) {
-      setMessage({
-        type: "error",
-        text:
-          locale === Languages.ARABIC
-            ? "حدث خطأ. يرجى المحاولة مرة أخرى."
-            : "An error occurred. Please try again.",
-      });
+      toast.error(
+        locale === Languages.ARABIC
+          ? "حدث خطأ. يرجى المحاولة مرة أخرى."
+          : "An error occurred. Please try again.",
+        {
+          style: {
+            backgroundColor: "white",
+            color: "red",
+          },
+        }
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -61,18 +63,6 @@ function ContactUsForm() {
       <h2 className="text-[32px] font font-semibold text-[var(--primary)]">
         {locale === Languages.ARABIC ? "تواصل معنا" : "Get in Touch"}
       </h2>
-
-      {message && (
-        <div
-          className={`p-3 rounded-md ${
-            message.type === "success"
-              ? "bg-green-100 text-green-800 border border-green-200"
-              : "bg-red-100 text-red-800 border border-red-200"
-          }`}
-        >
-          {message.text}
-        </div>
-      )}
 
       <form
         id="contact-form"

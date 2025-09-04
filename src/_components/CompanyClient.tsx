@@ -26,7 +26,7 @@ function CompanyClient() {
   return (
     <div className="mt-5 lg:mt-[70px]">
       {clientsData && clientsData.length > 0 && (
-        <div className="bg-[var(--whitelight)] rounded-tl-[16px] rounded-br-[16px] w-full md:w-[90%] lg:w-[1284px] h-[96px] mx-auto p-4 md:p-0">
+        <div className="bg-[var(--whitelight)] rounded-tl-[16px] rounded-br-[16px] w-full md:w-[90%] lg:w-full h-[96px] lg:h-[120px] mx-auto p-4 md:p-0">
           <Swiper
             modules={[Autoplay]}
             spaceBetween={30}

@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "next-sitemap --config next-sitemap.config.js"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.6.1",
@@ -25,9 +26,12 @@
     "motion": "^12.23.12",
     "negotiator": "^1.0.0",
     "next": "15.4.6",
+    "next-sitemap": "^4.2.3",
+    "next-themes": "^0.4.6",
+    "nodemailer": "^6.10.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "resend": "^6.0.2",
+    "sonner": "^2.0.7",
     "swiper": "^11.2.10",
     "tailwind-merge": "^3.3.1"
   },
@@ -35,6 +39,7 @@
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/nodemailer": "^6.4.19",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",

@@ -35,14 +35,29 @@ export const InfiniteMovingCards = ({
   const [isRTL, setIsRTL] = useState(false);
   function addAnimation() {
     if (containerRef.current && scrollerRef.current) {
-      const scrollerContent = Array.from(scrollerRef.current.children);
+      const container = containerRef.current;
+      const scroller = scrollerRef.current;
+      const initialChildren = Array.from(scroller.children);
 
-      scrollerContent.forEach((item) => {
-        const duplicatedItem = item.cloneNode(true);
-        if (scrollerRef.current) {
-          scrollerRef.current.appendChild(duplicatedItem);
-        }
-      });
+      // Measure width of one full set
+      const setWidth = initialChildren.reduce((acc, child) => {
+        const el = child as HTMLElement;
+        return acc + el.offsetWidth;
+      }, 0);
+
+      // Set scroll distance to one set width for seamless loop
+      container.style.setProperty("--scroll-distance", `${setWidth}px`);
+
+      // Duplicate items until scroller content is at least 2x container width
+      const minTotalWidth = container.offsetWidth + setWidth;
+      let currentWidth = scroller.scrollWidth;
+      while (currentWidth < minTotalWidth) {
+        initialChildren.forEach((child) => {
+          const duplicatedItem = child.cloneNode(true);
+          scroller.appendChild(duplicatedItem);
+        });
+        currentWidth = scroller.scrollWidth;
+      }
 
       getDirection();
       getSpeed();
